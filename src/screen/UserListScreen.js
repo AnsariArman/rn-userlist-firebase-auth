@@ -8,12 +8,15 @@ import {
   ActivityIndicator,
   RefreshControl,
   TouchableOpacity,
-  SafeAreaView
+  SafeAreaView,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import axios from 'axios';
 import auth from '@react-native-firebase/auth';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from '../utils/ResponsiveScreen';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from '../utils/ResponsiveScreen';
 import { ResponsiveFontValue as RFV } from '../utils/ResponsiveFonts';
 import LogoutModal from '../components/LogoutModal';
 import Colors from '../utils/Color';
@@ -44,18 +47,18 @@ const UserListScreen = (props) => {
 
   const handleLogout = async () => {
     auth().signOut();
-    await AsyncStorage.setItem('isUserLoggedIn', 'false'); // Save login flag
-     setLogoutModalVisible(false)
-     props.navigation.replace(LOGINSCREEN);
+    await AsyncStorage.setItem('isUserLoggedIn', 'false');
+    setLogoutModalVisible(false);
+    props.navigation.replace(LOGINSCREEN);
   };
 
   const renderItem = ({ item }) => (
-    <View style={styles.cardWrapper}>
-      <LinearGradient
-        colors={['#a18cd1', '#fbc2eb']}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 1 }}
-        style={styles.card}>
+    <LinearGradient
+      colors={['#a18cd1', '#fbc2eb']}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 1, y: 1 }}
+      style={styles.cardWrapper}>
+      <View style={styles.cardContent}>
         <Image source={{ uri: item.picture.large }} style={styles.avatar} />
         <View style={styles.userInfo}>
           <Text numberOfLines={1} style={styles.name}>{`${item.name.title} ${item.name.first} ${item.name.last}`}</Text>
@@ -64,8 +67,8 @@ const UserListScreen = (props) => {
           <Text numberOfLines={1} style={styles.detail}>✉️ {item.email}</Text>
           <Text numberOfLines={1} style={styles.detail}>📍 {item.location.city}, {item.location.state}</Text>
         </View>
-      </LinearGradient>
-    </View>
+      </View>
+    </LinearGradient>
   );
 
   if (loading) {
@@ -78,18 +81,13 @@ const UserListScreen = (props) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <TouchableOpacity
-        onPress={() => setLogoutModalVisible(true)}
-        activeOpacity={0.8}
-        style={styles.logoutButton}>
-        {/* <LinearGradient
-          colors={['#ff6a00', '#ee0979']}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 1 }}
-          style={styles.logoutButton}> */}
-          <Text style={styles.logoutText}>Logout</Text>
-        {/* </LinearGradient> */}
-      </TouchableOpacity>
+     <TouchableOpacity
+  onPress={() => setLogoutModalVisible(true)}
+  activeOpacity={0.8}
+  style={styles.logoutWrapper}>
+  
+    <Text style={styles.logoutText}>Logout</Text>
+</TouchableOpacity>
 
       <FlatList
         data={users}
@@ -97,14 +95,16 @@ const UserListScreen = (props) => {
         renderItem={renderItem}
         contentContainerStyle={{ paddingBottom: hp(2) }}
         refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={() => {
-            setRefreshing(true);
-            fetchUsers();
-          }} />
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={() => {
+              setRefreshing(true);
+              fetchUsers();
+            }}
+          />
         }
       />
 
-      {/* Bottom Modal */}
       <LogoutModal
         visible={logoutModalVisible}
         onClose={() => setLogoutModalVisible(false)}
@@ -127,38 +127,42 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   logoutWrapper: {
-    marginHorizontal: wp(4),
-    marginTop: hp(2),
+    paddingVertical: hp(2),
+    borderRadius: wp(3),
+    alignItems: 'center',
+    marginTop: hp(3),
+    backgroundColor: '#667eea',
+    marginHorizontal:wp(5)
   },
   logoutButton: {
-   
-      paddingVertical: hp(2),
-      borderRadius: wp(3),
-      alignItems: 'center',
-      marginTop: hp(3),
-      backgroundColor: '#667eea',
-  marginHorizontal:wp(8)
+    borderRadius: wp(3),
+    paddingVertical: hp(1.5),
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: wp(5),
+    elevation: 4,
+    shadowColor: Colors.black,
+    shadowOpacity: 0.2,
+    shadowRadius: 5,
+    shadowOffset: { width: 0, height: 2 },
   },
   logoutText: {
     color: Colors.white,
     fontWeight: '700',
     fontSize: RFV(16),
+    textTransform: 'uppercase',
+    letterSpacing: 1,
   },
   cardWrapper: {
-    shadowColor: Colors.black,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 4.65,
-    elevation: 8,
+    borderRadius: wp(4),
     marginHorizontal: wp(4),
     marginVertical: hp(1),
-    borderRadius: wp(4),
+    overflow: 'hidden',
+    elevation: 6,
   },
-  card: {
+  cardContent: {
     flexDirection: 'row',
-    borderRadius: wp(4),
     padding: wp(4),
-
   },
   avatar: {
     width: wp(18),
@@ -183,6 +187,4 @@ const styles = StyleSheet.create({
     fontSize: RFV(13),
     marginBottom: hp(0.2),
   },
-
-
 });

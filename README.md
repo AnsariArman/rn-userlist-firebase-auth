@@ -1,97 +1,73 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+Project Setup & Folder Structure
+<!-- structre  -->
+I followed a clean folder structure:
 
-# Getting Started
+components/: Reusable UI components like custom inputs and modals.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+navigation/: App navigation is handled using MainNavigator.js.
 
-## Step 1: Start Metro
+screen/: All screens like login, auth loading, and user list are defined here.
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+utils/: Responsive font, color scheme, and screen functions are defined here.
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+services/: Firebase configuration and services.
 
-```sh
-# Using npm
-npm start
+assets/: App images used in the UI.
 
-# OR using Yarn
-yarn start
-```
 
-## Step 2: Build and run your app
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+<!-- authentication -->
+Authentication (Firebase)
+Implemented Firebase Email & Password Authentication.
 
-### Android
+Users can log in using their credentials.
 
-```sh
-# Using npm
-npm run android
+Auth credentials used for testing:
 
-# OR using Yarn
-yarn android
-```
+Email: test@gmail.com
 
-### iOS
+Password: 123456
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
+Successfully authenticated users are navigated to the User List screen.
 
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
+Used AsyncStorage to persist the authentication state locally.
 
-```sh
-bundle install
-```
+<!-- after login -->
+After login, the app fetches data from:
+https://randomuser.me/api/?results=1000
 
-Then, and every time you update your native dependencies, run:
+The response is stored once and rendered in a FlatList without pagination.
 
-```sh
-bundle exec pod install
-```
+Each item in the list shows:
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+Full Name (Title + First + Last)
 
-```sh
-# Using npm
-npm run ios
+Age
 
-# OR using Yarn
-yarn ios
-```
+Phone
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+Email
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+Location
 
-## Step 3: Modify your app
+Profile Picture
 
-Now that you have successfully run the app, let's make changes!
+<!-- responsive UI -->
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+UI & Responsiveness
+Designed a clean and beautiful UI using:
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+Linear Gradient backgrounds
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+Custom Input components
 
-## Congratulations! :tada:
+Responsive design techniques using utilities like ResponsiveFonts and ResponsiveScreen.
 
-You've successfully run and modified your React Native App. :partying_face:
+The app is optimized for smooth performance even with 1000 records.
+<!-- logout  -->
+Bonus Features Added
+Logout functionality with confirmation modal
 
-### Now what?
+Loading indicators while fetching API data
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+Basic error handling for network and auth failures
