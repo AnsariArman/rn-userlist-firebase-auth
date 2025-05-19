@@ -130,9 +130,9 @@ const styles = StyleSheet.create({
     paddingVertical: hp(2),
     borderRadius: wp(3),
     alignItems: 'center',
-    marginTop: hp(3),
     backgroundColor: '#667eea',
-    marginHorizontal:wp(5)
+    marginHorizontal:wp(5),
+    marginVertical:hp(1)
   },
   logoutButton: {
     borderRadius: wp(3),
