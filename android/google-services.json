@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "190409339928",
+    "project_id": "authtask-e9a64",
+    "storage_bucket": "authtask-e9a64.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:190409339928:android:6e9e8920fffb938d15bf6d",
+        "android_client_info": {
+          "package_name": "com.authtask"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1V-hsL9tr9ngaTSdLcV8c6wbX2G8QMso"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
